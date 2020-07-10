@@ -51,7 +51,7 @@ public class AppContext extends Application {
         this.mAppContext = this;
 
         //初始化Bugly
-        Bugly.init(getApplicationContext(), BUGLY_APP_ID, true);
+//        Bugly.init(getApplicationContext(), BUGLY_APP_ID, true);
     }
 
     /**

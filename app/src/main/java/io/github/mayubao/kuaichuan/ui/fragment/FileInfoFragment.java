@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,8 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
-import butterknife.Bind;
+import androidx.fragment.app.Fragment;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.mayubao.kuaichuan.AppContext;
 import io.github.mayubao.kuaichuan.R;
@@ -33,9 +33,9 @@ import io.github.mayubao.kuaichuan.utils.AnimationUtils;
  */
 public class FileInfoFragment extends Fragment {
 
-    @Bind(R.id.gv)
+    @BindView(R.id.gv)
     GridView gv;
-    @Bind(R.id.pb)
+    @BindView(R.id.pb)
     ProgressBar pb;
 
     private int mType = FileInfo.TYPE_APK;

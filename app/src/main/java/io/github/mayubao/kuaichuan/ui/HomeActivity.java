@@ -7,13 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.mayubao.kuaichuan.Constant;
@@ -45,9 +47,9 @@ public class HomeActivity extends BaseActivity
     /**
      * 左右两大块 UI
      */
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 
     TextView tv_name;
@@ -55,40 +57,40 @@ public class HomeActivity extends BaseActivity
     /**
      * top bar 相关UI
      */
-    @Bind(R.id.ll_mini_main)
+    @BindView(R.id.ll_mini_main)
     LinearLayout ll_mini_main;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tv_title;
-    @Bind(R.id.iv_mini_avator)
+    @BindView(R.id.iv_mini_avator)
     ImageView iv_mini_avator;
-    @Bind(R.id.btn_send)
+    @BindView(R.id.btn_send)
     Button btn_send;
-    @Bind(R.id.btn_receive)
+    @BindView(R.id.btn_receive)
     Button btn_receive;
 
     /**
      * 其他UI
      */
-    @Bind(R.id.msv_content)
+    @BindView(R.id.msv_content)
     MyScrollView mScrollView;
-    @Bind(R.id.ll_main)
+    @BindView(R.id.ll_main)
     LinearLayout ll_main;
-    @Bind(R.id.btn_send_big)
+    @BindView(R.id.btn_send_big)
     Button btn_send_big;
-    @Bind(R.id.btn_receive_big)
+    @BindView(R.id.btn_receive_big)
     Button btn_receive_big;
 
-    @Bind(R.id.rl_device)
+    @BindView(R.id.rl_device)
     RelativeLayout rl_device;
-    @Bind(R.id.tv_device_desc)
+    @BindView(R.id.tv_device_desc)
     TextView tv_device_desc;
-    @Bind(R.id.rl_file)
+    @BindView(R.id.rl_file)
     RelativeLayout rl_file;
-    @Bind(R.id.tv_file_desc)
+    @BindView(R.id.tv_file_desc)
     TextView tv_file_desc;
-    @Bind(R.id.rl_storage)
+    @BindView(R.id.rl_storage)
     RelativeLayout rl_storage;
-    @Bind(R.id.tv_storage_desc)
+    @BindView(R.id.tv_storage_desc)
     TextView tv_storage_desc;
 
 
@@ -107,7 +109,6 @@ public class HomeActivity extends BaseActivity
 
         ButterKnife.bind(this);
 
-
         //Android6.0 requires android.permission.READ_EXTERNAL_STORAGE
         //TODO
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -124,7 +125,6 @@ public class HomeActivity extends BaseActivity
         updateBottomData();
         super.onResume();
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -177,31 +177,30 @@ public class HomeActivity extends BaseActivity
     /**
      * 测试bugly集成
      */
-    private void testBugly(){
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10 * 1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                throw new RuntimeException("======>>>这是茄子快传的一个错误测试");
-            }
-        }.start();
-    }
+//    private void testBugly(){
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(10 * 1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                throw new RuntimeException("======>>>这是茄子快传的一个错误测试");
+//            }
+//        }.start();
+//    }
 
     /**
      * 更新底部 设备数，文件数，节省流量数的数据
      */
-    private void updateBottomData(){
+    private void updateBottomData() {
         //TODO 设备数的更新
         //TODO 文件数的更新
         tv_file_desc.setText(String.valueOf(FileUtils.getReceiveFileCount()));
         //TODO 节省流量数的更新
-        tv_storage_desc.setText(String.valueOf(FileUtils.getReceiveFileListTotalLength()));
-
+        tv_storage_desc.setText(FileUtils.getReceiveFileListTotalLength());
     }
 
     @Override
@@ -211,21 +210,14 @@ public class HomeActivity extends BaseActivity
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             } else {
 //                super.onBackPressed();
-                if(mIsExist){
+                if (mIsExist) {
                     this.finish();
-                }else{
+                } else {
                     ToastUtils.show(getContext(), getContext().getResources().getString(R.string.tip_call_back_agin_and_exist)
-                                        .replace("{appName}", getContext().getResources().getString(R.string.app_name)));
+                            .replace("{appName}", getContext().getResources().getString(R.string.app_name)));
                     mIsExist = true;
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mIsExist = false;
-                        }
-                    }, 2 * 1000);
-
+                    mHandler.postDelayed(() -> mIsExist = false, 2 * 1000);
                 }
-
             }
         }
     }

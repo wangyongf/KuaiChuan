@@ -2,7 +2,6 @@ package io.github.mayubao.kuaichuan.ui.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -11,7 +10,8 @@ import android.widget.TextView;
 import java.util.Map;
 import java.util.Set;
 
-import butterknife.Bind;
+import androidx.appcompat.app.AlertDialog;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.mayubao.kuaichuan.AppContext;
@@ -32,11 +32,11 @@ public class ShowSelectedFileInfoDialog {
     /**
      * UI控件
      */
-    @Bind(R.id.btn_operation)
+    @BindView(R.id.btn_operation)
     Button btn_operation;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tv_title;
-    @Bind(R.id.lv_result)
+    @BindView(R.id.lv_result)
     ListView lv_result;
 
     Context mContext;
